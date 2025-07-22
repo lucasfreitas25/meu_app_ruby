@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agregador de Notícias</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: "Open Sans", sans-serif;
+    }
+    body {
+      background-color: #4955a9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+    }
+    main {
+      background-color: #101238;
+      padding: 40px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 25px;
+      width: 250px;
+    }
+    input[type="text"],
+    input[type="password"],
+    button {
+      font-size: medium;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input[type="text"],
+    input[type="password"] {
+      border: none;
+      border-bottom: 2px solid gray;
+      background-color: #101238;
+      padding: 10px;
+      color: white;
+    }
+    button {
+      font-size: 20px;
+      border-radius: 8px;
+      background-color: #3a12b1;
+      padding: 10px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: burlywood;
+    }
+
+    .register {
+      color: white;
+      text-align: center;
+    }
+    .register a {
+      color: #3a12b1;
+      text-decoration: none;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    label {
+      color: white;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="registro-header">
+      <h1>REGISTRO</h1>
+    </section>
+    <section class="registro-form">
+      <form action="/users" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <label for="fusuario">Nome</label> 
+        <input type="text" id="fusuario" name="user[name]" placeholder="Nome" />
+
+        <label for="femail">Email</label> 
+        <input type="text" id="femail" name="user[email]" placeholder="Email" />
+
+        <label for="lsenha">Senha</label> 
+        <input type="password" id="lsenha" name="user[password]" placeholder="Senha" />
+
+        <button type="submit">Registrar</button>
+      </form>
+
+  </main>
+</body>
+</html>
