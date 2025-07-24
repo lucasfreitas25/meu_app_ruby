@@ -1,0 +1,106 @@
+<% content_for :stylesheets do %>
+        <%= stylesheet_link_tag "style_lista_artigos", media: "all" %>
+    <% end %>
+<title>Lista de artigos</title>
+</head>
+<body>
+    <header>
+        SISTEMA DE PESQUISA DE TERMOS
+        <section class="desconectar">
+              <button class="Btn">
+                <div class="sign">
+                    <svg viewBox="0 0 512 512">
+                        <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+                    </svg>
+                </div>
+                <div class="text">Desconectar</div>
+            </button>
+        </section>
+    </header>
+    <main>
+        <section class="titulo-principal">
+            <p class="nome-usuario"><%= @current_user&.name %></p>
+            <section class="volta-principal">
+                <%= link_to "Voltar ao sistemas", principal_path, class: "btn volta-sistema" %>
+                
+            </section>    
+            <button class="lista-artigos" id="btn-arti">Abrir artigos salvos</button>
+        </section>    
+            <table id="tabelaResultados">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Exemplo 1</td>
+                        <td>01/01/2023</td>
+                        <td>
+                            <button class="btn-lixeira" aria-label="Remover artigo">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Exemplo 2</td>
+                        <td>02/01/2023</td>
+                        <td>
+                            <button class="btn-lixeira" aria-label="Remover artigo">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Exemplo 2</td>
+                        <td>02/01/2023</td>
+                        <td>
+                            <button class="btn-lixeira" aria-label="Remover artigo">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>Exemplo 2</td>
+                        <td>02/01/2023</td>
+                        <td>
+                            <button class="btn-lixeira" aria-label="Remover artigo">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <section class="sem-artigos">
+                    <tr>
+                        <td colspan="3" style="text-align:center;">Nenhum artigo salvo.</td>
+                    </tr>
+                </section>
+            </table>
+        <section class="sessao-fechar">
+            <button class="fechar-lista" id="btnFecharLista">Fechar lista</button>
+        </section>
+        
+            
+    </main>
+    <footer>
+        Fim de pesquisa
+    </footer>
+    <script>
+        const btnAbrir = document.getElementById('btn-arti');
+        const btnFechar = document.getElementById('btnFecharLista');
+        const tabela = document.getElementById('tabelaResultados');
+        const fecharLista = document.getElementById('btnFecharLista');
+
+        btnAbrir.addEventListener('click', function() {
+            tabela.classList.add('mostrar');
+            fecharLista.classList.add('mostrar');
+        });
+
+        btnFechar.addEventListener('click', function() {
+            tabela.classList.remove('mostrar');
+            fecharLista.classList.remove('mostrar');
+        });
+    </script>
+</body>
