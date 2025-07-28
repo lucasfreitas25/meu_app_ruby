@@ -68,7 +68,9 @@
         </tbody>
       </table>
     <% end %>
-    <p id="cond" style="display:none; text-align:center;">Nenhum resultado encontrado.</p>
+    <% if @top_headlines.blank? %>
+      <p style="text-align:center;">Nenhum resultado encontrado.</p>
+    <% end %>
   </main>
 
 
@@ -81,14 +83,11 @@
         botaoPesquisar.addEventListener('click', function () {
           setTimeout(() => {
             const tabela = document.getElementById('tabelaResultados');
-            const cond = document.getElementById('cond');
-            
-            if (!tabela && cond) {
-              cond.style.display = "block";
-            } else if (cond) {
-              cond.style.display = "none"; 
+           
+            if (tabela) {
+              const temResultados = tabela.querySelectorAll("tbody tr").length > 0;
             }
-          }, 300); 
+          }, 300);
         });
       }
 

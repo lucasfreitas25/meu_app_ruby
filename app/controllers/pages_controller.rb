@@ -17,6 +17,7 @@ class PagesController < ApplicationController
       @top_headlines = newsapi.get_top_headlines(q: termo, language: 'en', country: 'us')
     rescue => e
       Rails.logger.error("Erro ao buscar notícias: #{e.message}")
+      @top_headlines = []
     end
   end
 
