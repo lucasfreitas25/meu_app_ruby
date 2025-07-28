@@ -15,7 +15,10 @@ test:
   <<: *default
   database: meu_app_test
 
-
 production:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "meu_app_production") %>
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
