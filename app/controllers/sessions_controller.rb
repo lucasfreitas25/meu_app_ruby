@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_to principal_path
     else
       flash[:alert] = "Email ou senha inválidos"
-      render :new
+      redirect_to login_path
     end
   end
   def destroy

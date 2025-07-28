@@ -2,12 +2,12 @@
   <%= stylesheet_link_tag "style_principal", media: "all" %>
 <% end %>
 
-</head>
+<% content_for :title, "Principal" %>
 <body>
   <header>
     SISTEMA DE PESQUISA DE TERMOS
     <section class="desconectar">
-      <%= link_to logout_path, method: :get, class: "btn" do %>
+      <%= link_to logout_path, method: :get, class: "Btn" do %>
         <div class="sign">
             <svg viewBox="0 0 512 512">
                 <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
@@ -29,41 +29,108 @@
         <h2>Digite o termo a ser pesquisado</h2>
       </section>
       <section class="caixa-search">
-        <input class="caixa-texto" type="text" placeholder="Pesquisar...">
-        <a class="botao-search" id="btnPesquisar">
-          <i class='fas fa-search'></i>
-        </a>
+        <%= form_with url: principal_path, method: :get, local: true, class: "form-busca" do %>
+          <input class="caixa-texto" type="text" name="q" placeholder="Pesquisar..." value="<%= params[:q] %>">
+          <button id='btnPesquisar' class="botao-search" type="submit">
+            <i class='fas fa-search'></i>
+          </button>
+        <% end %>
       </section>
     </section>
-
-    <table id="tabelaResultados">
-      <thead>
-        <tr>
-          <th>Título</th>
-          <th>Fonte</th>
-          <th>Link</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Exemplo 1</td>
-          <td>Descrição do exemplo 1</td>
-          <td>01/01/2023</td>
-          <td><button class="btn-editar">Save for Later</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <% if @top_headlines.present? && @top_headlines.any? %>
+      <table id="tabelaResultados">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Fonte</th>
+            <th>Link</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @top_headlines.first(5).each do |artigo| %>
+            <tr>
+              <td><%= artigo.title %></td>
+              <td><%= artigo.author || "Fonte não disponível" %></td>
+              <td>
+                <a href="<%= artigo.url %>" target="_blank">Ver artigo</a>
+              </td>
+              <td>
+                <button class="btn-editar"                 
+                  data-nome="<%= artigo.title %>" 
+                  data-fonte="<%= artigo.author %>" 
+                  data-link="<%= artigo.url %>">
+                  Salvar artigo
+                </button>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <p id="cond" style="display:none; text-align:center;">Nenhum resultado encontrado.</p>
   </main>
 
-  <footer>
-    Fim de pesquisa
-  </footer>
 
   <script>
-    document.getElementById('btnPesquisar').addEventListener('click', function() {
-      document.getElementById('tabelaResultados').classList.add('mostrar');
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      const botaoPesquisar = document.getElementById('btnPesquisar');
+
+      if (botaoPesquisar) {
+        botaoPesquisar.addEventListener('click', function () {
+          setTimeout(() => {
+            const tabela = document.getElementById('tabelaResultados');
+            const cond = document.getElementById('cond');
+            
+            if (!tabela && cond) {
+              cond.style.display = "block";
+            } else if (cond) {
+              cond.style.display = "none"; 
+            }
+          }, 300); 
+        });
+      }
+
+      
+      document.querySelectorAll(".btn-editar").forEach((botao) => {
+        botao.addEventListener("click", () => {
+          const nome = botao.dataset.nome;
+          const fonte = botao.dataset.fonte || "Fonte não disponível";
+          const link = botao.dataset.link;
+
+          fetch("/salvar_artigo", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+            },
+            body: JSON.stringify({
+              artigo: {
+                nome_artigo: nome,
+                fonte: fonte,
+                link: link
+              }
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === "ok") {
+              alert("✅ Artigo salvo com sucesso!");
+            } else {
+              alert("❌ Erro ao salvar artigo: " + (data.erros || []).join(", "));
+            }
+          })
+          .catch(error => {
+            alert("❌ Erro de conexão ao tentar salvar artigo.");
+            console.error(error);
+          });
+        });
+      });
     });
+  </script>
+
+
   </script>
 </body>
 </html>

@@ -9,8 +9,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       redirect_to login_path, notice: "Usuário registrado com sucesso!"
-    elseS
-      render :new
+    else
+      flash[:alert] = "Registro falhou."
+      redirect_to register_path
     end
   end
 

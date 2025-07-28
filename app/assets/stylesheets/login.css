@@ -57,6 +57,16 @@ button:hover {
     background-color: burlywood;
 }
 
+.error-message{
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+    
+}
+
+.error{
+    text-align: center;
+}
 .register {
     color: white;
     text-align: center;

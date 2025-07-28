@@ -73,3 +73,20 @@ label {
     font-weight: bold;
     margin-bottom: 5px;
 }
+
+.voltar-login {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}
+
+.error-message{
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+    
+}
+
+.error{
+    text-align: center;
+}

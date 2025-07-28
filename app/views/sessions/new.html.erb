@@ -24,9 +24,13 @@
         <input type="password" id="lsenha" name="password" placeholder="Senha" />
         <button type="submit">Login</button>
       </form>
-    </section>
-    <section class="register">
-      <p>Não tem uma conta? <a href="/signup">Registre-se</a></p>
+      <section class="error-message">
+        <% if flash[:alert] %>
+          <p class="error"><%= flash[:alert] %></p>
+        <% end %>
+      </section>
+      <section class="register">
+        <p>Não tem uma conta? <%= link_to "Registre-se", register_path, class: "a" %></p>
     </section>
   </main>
 </body>

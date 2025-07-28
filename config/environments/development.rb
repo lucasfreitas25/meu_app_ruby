@@ -11,7 +11,7 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
-
+  config.news_api_key = ENV["NEWS_API_KEY"]
   # Enable server timing.
   config.server_timing = true
 
