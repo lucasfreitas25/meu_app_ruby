@@ -31,12 +31,14 @@ form {
 }
 input[type="text"],
 input[type="password"],
+input[type="email"],
 button {
     font-size: medium;
     width: 100%;
     box-sizing: border-box;
 }
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     border: none;
     border-bottom: 2px solid gray;
@@ -44,7 +46,7 @@ input[type="password"] {
     padding: 10px;
     color: white;
 }
-button {
+input[type="submit"] {
     font-size: 20px;
     border-radius: 8px;
     background-color: #3a12b1;

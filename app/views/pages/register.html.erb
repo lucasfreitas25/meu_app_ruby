@@ -1,24 +1,27 @@
-
 <% content_for :stylesheets do %>
   <%= stylesheet_link_tag "register", media: "all" %>
 <% end %>
-</head>
+<% content_for :title, "Registro" %>
+
 <body>
   <main>
     <section class="registro-header">
       <h1>REGISTRO</h1>
     </section>
+
     <section class="registro-form">
-      <form>
-         <label for="fusuario">Nome</label> 
-        <input type="text" id="fusuario" name="nome" placeholder="Nome" />
-         <label for="fusuario">Email</label> 
-        <input type="text" id="fusuario" name="email" placeholder="Email" />
-         <label for="lsenha">Senha</label> 
-        <input type="password" id="lsenha" name="senha" placeholder="Senha" />
-        <button type="submit" <a href="/principal">Registrar</a></button>
-      </form>
+      <%= form_with model: @user, url: users_path, method: :post do |f| %>
+        <label for="user_name">Nome</label>
+        <%= f.text_field :name, placeholder: "Nome" %>
+
+        <label for="user_email">Email</label>
+        <%= f.email_field :email, placeholder: "Email" %>
+
+        <label for="user_password">Senha</label>
+        <%= f.password_field :password, placeholder: "Senha" %>
+
+        <%= f.submit "Registrar" %>
+      <% end %>
     </section>
   </main>
 </body>
-

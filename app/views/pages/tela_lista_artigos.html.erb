@@ -1,50 +1,50 @@
-<% content_for :stylesheets do %>
-  <%= stylesheet_link_tag "style_lista_artigos", media: "all" %>
-<% end %>
 
 <% content_for :title, "Lista de Artigos" %>
 
-<body>
-  <header>
+<body class="bg-[#4955a9] min-h-screen m-0 font-sans">
+  <header class="bg-[#101238] text-center text-white px-[10px] pt-[80px] pb-[100px] text-[2.5rem] leading-tight tracking-[2px] relative shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
     SISTEMA DE PESQUISA DE TERMOS
-    <section class="desconectar">
-      <%= link_to logout_path, method: :get, class: "Btn" do %>
-        <div class="sign">
-          <svg viewBox="0 0 512 512">
-            <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+
+    <section class="absolute bottom-5 right-8 z-20 m-0 p-0">
+      <%= link_to logout_path, method: :get, class: "group flex items-center justify-center w-12 h-12 border-none rounded-full m-auto cursor-pointer relative overflow-hidden transition-all duration-300 ease-in-out shadow-[0_2px_12px_rgba(0,0,0,0.18)] bg-gradient-to-r from-[#007cff] to-[#005fa3] hover:w-40 hover:rounded-[40px] hover:shadow-[0_4px_20px_rgba(0,124,255,0.15)] active:translate-x-[2px] active:translate-y-[2px]" do %>
+        <div class="flex items-center justify-center transition-all duration-300 ease-in-out ml-0 group-hover:ml-3">
+          <svg class="w-5" viewBox="0 0 512 512">
+            <path class="fill-white" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
           </svg>
         </div>
-        <div class="text">Desconectar</div>
+        <div class="ml-2 text-white text-sm font-semibold whitespace-nowrap opacity-0 w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:w-auto">
+          Desconectar
+        </div>
       <% end %>
     </section>
   </header>
 
-  <main>
-    <section class="titulo-principal">
-      <p class="nome-usuario"><%= @current_user&.name %></p>
-      <section class="volta-principal">
-        <%= link_to "Voltar ao sistema", principal_path, class: "btn volta-sistema" %>
-      </section>    
-      <button class="lista-artigos" id="btn-arti">Abrir artigos salvos</button>
+  <main class="min-h-[60vh] max-w-[900px] rounded-xl pt-[40px] pb-[40px] px-[5vw] bg-amber-200 shadow-[0_4px_24px_rgba(0,0,0,0.18)] mt-[2%] mx-auto">
+    <section class="flex justify-between items-center mb-[20px] relative flex-wrap gap-4">
+      <p class="m-0 px-[20px] font-bold text-2xl text-gray-950"><%= @current_user&.name %></p>
+      
+      <%= link_to "Voltar ao sistema", principal_path, class:"cursor-pointer border-none text-white py-[10px] px-[20px] rounded-sm bg-gradient-to-r from-[#007cff] to-[#005fa3]" %>
+      
+      <button class="cursor-pointer border-none text-white py-[10px] px-[20px] rounded-sm bg-gradient-to-r from-[#007cff] to-[#005fa3]" id="btn-arti">Abrir artigos salvos</button>
     </section>    
 
     <% if @artigos.any? %>
-      <table class="tabela-artigos">
+      <table class="tabela-artigos w-full border-collapse mt-5 hidden">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Link</th>
-            <th>Ações</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Nome</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Link</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Ações</th>
           </tr>
         </thead>
         <tbody>
           <% @artigos.each do |artigo| %>
             <tr id="<%= dom_id(artigo) %>">
-              <td><%= artigo.nome_artigo %></td>
-              <td><%= link_to 'Ver', artigo.link, target: "_blank" %></td>
-              <td>
-                <%= form_with url: remover_artigo_path(artigo), method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir este artigo?" }, class: "form-remover", local: true do %>
-                  <%= button_tag type: :submit, class: "btn btn-lixeira" do %>
+              <td class="py-3 px-4 border-b border-gray-200"><%= artigo.nome_artigo %></td>
+              <td class="py-3 px-4 border-b border-gray-200"><%= link_to 'Ver', artigo.link, target: "_blank", class: "text-blue-600 hover:underline" %></td>
+              <td class="py-3 px-4 border-b border-gray-200">
+                <%= form_with url: remover_artigo_path(artigo), method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir este artigo?" }, class: "inline-block", local: true do %>
+                  <%= button_tag type: :submit, class: "bg-red-500 hover:bg-red-600 text-white w-9 h-9 rounded flex items-center justify-center shadow-md" do %>
                     <i class="fa-solid fa-trash"></i>
                   <% end %>
                 <% end %>
@@ -54,32 +54,32 @@
         </tbody>
       </table>
     <% else %>  
-      <p style=text-align:center;>Você ainda não salvou nenhum artigo.</p>
+      <p class="text-center text-black mt-8">Você ainda não salvou nenhum artigo.</p>
     <% end %>
 
     <section class="sessao-fechar">
-      <button class="fechar-lista" id="btnFecharLista">Fechar lista</button>
+      <button class="hidden absolute right-1/2 translate-x-1/2 mt-4 bg-gradient-to-r from-[#007cff] to-[#005fa3] text-white py-2 px-6 rounded cursor-pointer" id="btnFecharLista">Fechar lista</button>
     </section>
   </main>
-
                     
 
   <script>
-    const btnAbrir = document.getElementById('btn-arti');
-    const btnFechar = document.getElementById('btnFecharLista');
-    const tabela = document.querySelector('.tabela-artigos');
-    const fecharLista = document.getElementById('btnFecharLista');
+    document.addEventListener("DOMContentLoaded", () => {
+      const tabela = document.querySelector(".tabela-artigos");
+      const btnAbrir = document.getElementById("btn-arti");
+      const btnFechar = document.getElementById("btnFecharLista");
 
-    if (btnAbrir && tabela && fecharLista) {
-      btnAbrir.addEventListener('click', () => {
-        tabela.classList.add('mostrar');
-        fecharLista.classList.add('mostrar');
-      });
+      if (btnAbrir && tabela && btnFechar) {
+        btnAbrir.addEventListener("click", () => {
+          tabela.classList.remove("hidden");
+          btnFechar.classList.remove("hidden");
+        });
 
-      btnFechar.addEventListener('click', () => {
-        tabela.classList.remove('mostrar');
-        fecharLista.classList.remove('mostrar');
-      });
-    }
+        btnFechar.addEventListener("click", () => {
+          tabela.classList.add("hidden");
+          btnFechar.classList.add("hidden");
+        });
+      }
+    });
   </script>
 </body>

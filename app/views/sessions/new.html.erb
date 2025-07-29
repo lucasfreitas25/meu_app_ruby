@@ -1,37 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Agregador de Notícias</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet">
-  <% content_for :stylesheets do %>
-    <%= stylesheet_link_tag "login", media: "all" %>
-  <% end %>
-</head>
-<body>
-  <main>
+<% content_for :title, "Login" %>
+
+<body class="bg-sky-200 text-gray-900 flex justify-center items-center h-screen m-0">
+  <main class="bg-sky-800 text-gray-900 rounded-lg flex flex-col items-center p-[40px] w-96">
     <section class="login-header">
-      <h1>LOGIN</h1>
-      <!-- <h2>Entre com o seu usuário e senha ou clique aqui para se registrar</h2> -->
+      <h1 class="text-white text-2xl font-bold">LOGIN</h1>
     </section>
-    <section class="login-form">
-      <form action="/login" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <input type="text" id="fusuario" name="email" placeholder="Email" />
-        <input type="password" id="lsenha" name="password" placeholder="Senha" />
-        <button type="submit">Login</button>
-      </form>
-      <section class="error-message">
-        <% if flash[:alert] %>
-          <p class="error"><%= flash[:alert] %></p>
-        <% end %>
-      </section>
-      <section class="register">
-        <p>Não tem uma conta? <%= link_to "Registre-se", register_path, class: "a" %></p>
+
+    <section>
+      <%= form_with url: "/login", method: :post, html: { class: "flex flex-col items-center gap-6 mt-4 w-[250px] p-[25px]" } do %>
+        <input class="border-b border-gray-400 text-white p-[10px] bg-sky-800 focus:outline-none" type="text" id="fusuario" name="email" placeholder="Email" />
+
+        <input class="border-b border-gray-400 text-white p-[10px] bg-sky-800 focus:outline-none" type="password" id="lsenha" name="password" placeholder="Senha" />
+
+        <button type="submit" class="rounded-lg bg-fuchsia-950 p-[10px] text-white cursor-pointer hover:bg-white hover:text-fuchsia-950 transition">
+          Login
+        </button>
+      <% end %>
     </section>
+
+    <section class="text-white text-center mt-4">
+      <p>Não tem uma conta? <%= link_to "Registre-se", register_path, class: "text-fuchsia-300 font-bold no-underline hover:underline" %></p>
+    </section>
+
   </main>
 </body>
-</html>

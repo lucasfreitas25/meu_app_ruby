@@ -1,35 +1,27 @@
+<% content_for :title, "Registro" %>
 
-<% content_for :stylesheets do %>
-  <%= stylesheet_link_tag "register", media: "all" %>
-<% end %>
-</head>
-<body>
-  <main>
+<body class="bg-sky-200 text-gray-900 flex justify-center items-center h-screen m-0">
+  <main class="bg-sky-800 text-gray-900 rounded-lg flex flex-col items-center p-[40px] w-96">
     <section class="registro-header">
-      <h1>REGISTRO</h1>
+      <h1 class="text-white text-2xl font-bold">REGISTRO</h1>
     </section>
+
     <section class="registro-form">
-      <form action="/users" method="post">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <label for="fusuario">Nome</label> 
-        <input type="text" id="fusuario" name="user[name]" placeholder="Nome" />
+      <%= form_with model: @user, url: users_path, method: :post, html: { class: "flex flex-col items-center gap-6 mt-4 w-[250px] p-[25px]" } do |f| %>
+        <label for="user_name" class="text-white self-start">Nome</label>
+        <%= f.text_field :name, placeholder: "Nome", class: "border-b border-gray-400 text-white p-[10px] bg-sky-800 focus:outline-none w-full" %>
 
-        <label for="femail">Email</label> 
-        <input type="text" id="femail" name="user[email]" placeholder="Email" />
+        <label for="user_email" class="text-white self-start">Email</label>
+        <%= f.email_field :email, placeholder: "Email", class: "border-b border-gray-400 text-white p-[10px] bg-sky-800 focus:outline-none w-full" %>
 
-        <label for="lsenha">Senha</label> 
-        <input type="password" id="lsenha" name="user[password]" placeholder="Senha" />
+        <label for="user_password" class="text-white self-start">Senha</label>
+        <%= f.password_field :password, placeholder: "Senha", class: "border-b border-gray-400 text-white p-[10px] bg-sky-800 focus:outline-none w-full" %>
 
-        <button type="submit">Registrar</button>
-      </form>
-      <section class="error-message">
-        <% if flash[:alert] %>
-          <p class="error"><%= flash[:alert] %></p>
-        <% end %>
-      </section>
-      <section class="voltar-login">
-        <p>Já tem uma conta? <%= link_to "Login", login_path %></p>
+        <%= f.submit "Registrar", class: "rounded-lg bg-fuchsia-950 text-white cursor-pointer hover:bg-white hover:text-fuchsia-950 transition p-[10px]" %>
+      <% end %>
+    </section>
+    <section class="text-white text-center mt-4">
+      <p>Já tem uma conta? <%= link_to "Voltar Login", login_path, class: "text-fuchsia-300 font-bold no-underline hover:underline" %></p>
     </section>
   </main>
 </body>
-</html>

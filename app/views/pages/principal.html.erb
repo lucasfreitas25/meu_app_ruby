@@ -1,62 +1,64 @@
-<% content_for :stylesheets do %>
-  <%= stylesheet_link_tag "style_principal", media: "all" %>
-<% end %>
-
 <% content_for :title, "Principal" %>
-<body>
-  <header>
+
+<body class="bg-[#4955a9] min-h-screen m-0 font-sans">
+  <header class="bg-[#101238] text-center text-white px-[10px] pt-[80px] pb-[100px] text-[2.5rem] leading-tight tracking-[2px] relative shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
     SISTEMA DE PESQUISA DE TERMOS
-    <section class="desconectar">
-      <%= link_to logout_path, method: :get, class: "Btn" do %>
-        <div class="sign">
-            <svg viewBox="0 0 512 512">
-                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
-            </svg>
+    <section class="absolute bottom-5 right-8 z-20 m-0 p-0">
+      <%= link_to logout_path, method: :get, class: "group flex items-center justify-center w-12 h-12 border-none rounded-full m-auto cursor-pointer relative overflow-hidden transition-all duration-300 ease-in-out shadow-[0_2px_12px_rgba(0,0,0,0.18)] bg-gradient-to-r from-[#007cff] to-[#005fa3] hover:w-40 hover:rounded-[40px] hover:shadow-[0_4px_20px_rgba(0,124,255,0.15)] active:translate-x-[2px] active:translate-y-[2px]" do %>
+        <div class="flex items-center justify-center transition-all duration-300 ease-in-out ml-0 group-hover:ml-3">
+          <svg class="w-5" viewBox="0 0 512 512">
+            <path class="fill-white" d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+          </svg>
         </div>
-        <div class="text">Desconectar</div>
+        <div class="ml-2 text-white text-sm font-semibold whitespace-nowrap opacity-0 w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:w-auto">
+          Desconectar
+        </div>
       <% end %>
     </section>
   </header>
 
-  <main>
-    <section class="titulo-principal">
-      <p class="nome-usuario"><%= @current_user&.name %></p>
-      <%= link_to "Lista de Artigos Salvos", artigos_path, class: "btn lista-artigos" %>
+  <main class="min-h-[60vh] max-w-[900px] rounded-xl pt-[40px] pb-[40px] px-[5vw] bg-amber-200 shadow-[0_4px_24px_rgba(0,0,0,0.18)] mt-[2%] mr-auto mb-0 ml-auto">
+    <section class="flex justify-between items-center mb-[20px] relative">
+      <p class="m-0 px-[20px] font-bold text-2xl text-gray-950"><%= @current_user&.name %></p>
+      <%= link_to "Lista de Artigos Salvos", artigos_path, class: "mt-0 static right-0 cursor-pointer border-none text-white py-[10px] px-[20px] rounded-sm bg-gradient-to-r from-[#007cff] to-[#005fa3]" %>
     </section> 
 
     <section class="pesquisa">
-      <section class="titulo-pesquisa">
-        <h2>Digite o termo a ser pesquisado</h2>
+      <section class="pb-[40px] text-[#e0e0e0] text-xl">
+        <h2 class="text-black mt-0 text-center text-4xl">Digite o termo a ser pesquisado</h2>
       </section>
-      <section class="caixa-search">
-        <%= form_with url: principal_path, method: :get, local: true, class: "form-busca" do %>
-          <input class="caixa-texto" type="text" name="q" placeholder="Pesquisar..." value="<%= params[:q] %>">
-          <button id='btnPesquisar' class="botao-search" type="submit">
+
+      <section class="relative top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#222] h-[44px] rounded-full p-1 shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center w-[80%] max-w-[90vw] transition-shadow hover:shadow-[0_4px_16px_rgba(0,124,255,0.18)] focus-within:shadow-[0_4px_16px_rgba(0,124,255,0.18)]">
+        <%= form_with url: principal_path, method: :get, local: true, html: { class: "flex w-full max-w-full rounded-[10px] overflow-hidden transition-colors focus-within:border-[#007BFF]" } do %>
+          <input class="border-none bg-[#222] outline-none text-white text-base transition-all duration-400 leading-[30px] rounded-[10%] w-full cursor-pointer mx-2 focus:bg-[#333] focus:rounded-[20px] focus:px-[10px] placeholder-white"
+          type="text" name="q" placeholder="Pesquisar..." value="<%= params[:q] %>">
+          <button id='btnPesquisar' class="text-white w-[40px] h-[40px] rounded-full bg-[#333] flex justify-center items-center transition-all duration-400 border-none cursor-pointer text-[1.2em] shadow-[0_1px_4px_rgba(0,0,0,0.1)] hover:bg-white hover:text-[#007cff] hover:ml-[6px] focus:bg-white focus:text-[#007cff] focus:ml-[6px]" type="submit">
             <i class='fas fa-search'></i>
           </button>
         <% end %>
       </section>
     </section>
+
     <% if @top_headlines.present? && @top_headlines.any? %>
-      <table id="tabelaResultados">
+      <table class="w-full border-collapse mt-5" id="tabelaResultados">
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Fonte</th>
-            <th>Link</th>
-            <th>Ações</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Título</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Fonte</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Link</th>
+            <th class="py-3 px-4 border-b border-gray-300 text-left">Ações</th>
           </tr>
         </thead>
         <tbody>
           <% @top_headlines.first(5).each do |artigo| %>
             <tr>
-              <td><%= artigo.title %></td>
-              <td><%= artigo.author || "Fonte não disponível" %></td>
-              <td>
-                <a href="<%= artigo.url %>" target="_blank">Ver artigo</a>
+              <td class="py-3 px-4 border-b border-gray-200"><%= artigo.title %></td>
+              <td class="py-3 px-4 border-b border-gray-200"><%= artigo.author || "Fonte não disponível" %></td>
+              <td class="py-3 px-4 border-b border-gray-200">
+                <a href="<%= artigo.url %>" target="_blank" class="text-blue-500 hover:underline">Ver artigo</a>
               </td>
-              <td>
-                <button class="btn-editar"                 
+              <td class="py-3 px-4 border-b border-gray-200">
+                <button class="bg-gradient-to-r from-[#007cff] to-[#0c7fd2] text-white px-3 py-2 rounded-md cursor-pointer hover:opacity-90"
                   data-nome="<%= artigo.title %>" 
                   data-fonte="<%= artigo.author %>" 
                   data-link="<%= artigo.url %>">
@@ -68,68 +70,64 @@
         </tbody>
       </table>
     <% end %>
-    <% if @top_headlines.blank? %>
-      <p style="text-align:center;">Nenhum resultado encontrado.</p>
+
+    <% if params[:q].present? && @top_headlines.blank? %>
+      <p class="text-center text-black mt-8">Nenhum resultado encontrado.</p>
     <% end %>
   </main>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const botaoPesquisar = document.getElementById('btnPesquisar');
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      const botaoPesquisar = document.getElementById('btnPesquisar');
+    if (botaoPesquisar) {
+      botaoPesquisar.addEventListener('click', () => {
+        setTimeout(() => {
+          const tabela = document.getElementById('tabelaResultados');
+          // const temResultados = tabela && tabela.querySelectorAll("tbody tr").length > 0;
+        }, 300);
+      });
+    }
 
-      if (botaoPesquisar) {
-        botaoPesquisar.addEventListener('click', function () {
-          setTimeout(() => {
-            const tabela = document.getElementById('tabelaResultados');
-           
-            if (tabela) {
-              const temResultados = tabela.querySelectorAll("tbody tr").length > 0;
-            }
-          }, 300);
-        });
-      }
+    document.querySelectorAll("button[data-nome][data-fonte][data-link]").forEach((botao) => {
+      botao.addEventListener("click", () => {
+        const nome = botao.getAttribute("data-nome");
+        const fonte = botao.getAttribute("data-fonte");
+        const link = botao.getAttribute("data-link");
 
-      
-      document.querySelectorAll(".btn-editar").forEach((botao) => {
-        botao.addEventListener("click", () => {
-          const nome = botao.dataset.nome;
-          const fonte = botao.dataset.fonte || "Fonte não disponível";
-          const link = botao.dataset.link;
-
-          fetch("/salvar_artigo", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
-            },
-            body: JSON.stringify({
-              artigo: {
-                nome_artigo: nome,
-                fonte: fonte,
-                link: link
-              }
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === "ok") {
-              alert("✅ Artigo salvo com sucesso!");
-            } else {
-              alert("❌ Erro ao salvar artigo: " + (data.erros || []).join(", "));
+        fetch("/salvar_artigo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+          },
+          body: JSON.stringify({
+            artigo: {
+              nome_artigo: nome,
+              fonte: fonte,
+              link: link
             }
           })
-          .catch(error => {
-            alert("❌ Erro de conexão ao tentar salvar artigo.");
-            console.error(error);
-          });
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(data => {
+              throw new Error(data.erros || "Erro ao salvar");
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert("Artigo salvo com sucesso!");
+        })
+        .catch(error => {
+          alert("Erro: " + error.message);
         });
       });
     });
-  </script>
+  });
+</script>
 
 
-  </script>
+
 </body>
-</html>

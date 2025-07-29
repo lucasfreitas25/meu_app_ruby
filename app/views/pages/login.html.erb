@@ -1,23 +1,22 @@
 <% content_for :stylesheets do %>
   <%= stylesheet_link_tag "login", media: "all" %>
 <% end %>
+<% content_for :title, "Login" %>
 
-</head>
 <body>
   <main>
     <section class="login-header">
       <h1>LOGIN</h1>
-      
     </section>
+
     <section class="login-form">
-      <form>
-       
+      <%= form_with url: "/login", method: :post do %>
         <input type="text" id="fusuario" name="email" placeholder="Email" />
-        
-        <input type="password" id="lsenha" name="senha" placeholder="Senha" />
-        <button type="submit" <%= link_to "Login", principal_path %></button>
-      </form>
+        <input type="password" id="lsenha" name="password" placeholder="Senha" />
+        <button type="submit">Login</button>
+      <% end %>
     </section>
+
     <section class="register">
       <p>Não tem uma conta? <%= link_to "Registre-se", register_path %></p>
     </section>

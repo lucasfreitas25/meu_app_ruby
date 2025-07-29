@@ -45,7 +45,7 @@ rails db:migrate
 ### Comandos utilizados:
 ```bash
 rails new meu_app -d postgresql
-rails generate controller Pages login
+rails generate controller Pages login register principal
 rails generate controller Users new create
 rails generate controller Sessions new create destroy
 rails generate model User name:string email:string password_digest:string
@@ -72,15 +72,17 @@ A interface foi inspirada em portais de pesquisa modernos, priorizando:
 - Simplicidade e foco na usabilidade
 - Barra de pesquisa centralizada na página principal
 - Visual limpo e responsivo para facilitar leitura e interação
-
+- Utilizado Tailwind
 ---
 
 
 
-## 🚀 Deploy
+## 🚀 Palavras testadas
 
-...
 
+- trump
+- google
+- facebook
 
 ---
 

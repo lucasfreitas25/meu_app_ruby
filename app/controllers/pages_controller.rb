@@ -49,7 +49,7 @@ class PagesController < ApplicationController
       respond_to do |format|
         format.turbo_stream
         format.json { render json: { status: "ok" } }
-        format.html { redirect_to telas_lista_artigos_path, notice: "Artigo removido com sucesso." }
+        format.html { redirect_to artigos_path, notice: "Artigo removido com sucesso."}
       end
     else
       render json: { status: "erro", erros: @artigo.errors.full_messages }, status: 422
